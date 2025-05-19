@@ -114,7 +114,7 @@ function App() {
           <div className="text-center mb-4">
             <div className="mb-2">
               <img 
-                src="public/river-svgrepo-com.svg" 
+                src="/river-svgrepo-com.svg" 
                 alt="River Icon" 
                 style={{ width: '80px', height: '80px' }} 
                 className="text-primary"
