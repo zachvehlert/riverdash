@@ -3,6 +3,7 @@ import { usgsService } from './models/RiverLevel';
 import { RiverLevelsTable } from './components/RiverLevelsTable';
 import { AddRiver } from './components/AddRiver';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import riverIcon from '../public/river-svgrepo-com.svg';
 
 // Load saved stations from localStorage
 const loadStations = () => {
@@ -114,7 +115,7 @@ function App() {
           <div className="text-center mb-4">
             <div className="mb-2">
               <img 
-                src="/river-svgrepo-com.svg" 
+                src={riverIcon} 
                 alt="River Icon" 
                 style={{ width: '80px', height: '80px' }} 
                 className="text-primary"
