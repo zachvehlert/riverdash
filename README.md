@@ -9,11 +9,11 @@ To add a river, select the add new river button. Select a state and search for a
 ## Color Codes
 
 ### River Level
-Red - Above or below runnable flows
-Green - Within Runnable flows
-Blue - No runnable flows defined
+Red - Above or below runnable flows<br />
+Green - Within Runnable flows<br />
+Blue - No runnable flows defined<br />
 
 ### Trend Data
-Light Blue -  Rising
-Grey - Flat (also says flat)
-Orange - Falling
+Light Blue -  Rising<br />
+Grey - Flat (also says flat)<br />
+Orange - Falling<br />
