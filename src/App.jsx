@@ -151,7 +151,25 @@ function App() {
             </div>
           </div>
         </div>
-      </div>
+      </div> 
+      <footer className="mt-5 text-center text-muted small">
+        <div>Data provided by USGS</div>
+        <div>ZEhlert Software 2025</div>
+        <div className="mt-2">
+          <a 
+            href="https://www.buymeacoffee.com/zachvehlert" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="d-inline-block"
+          >
+            <img 
+              src={`${import.meta.env.BASE_URL}bmc-button.png`}
+              alt="Buy me a coffee" 
+              style={{ height: '40px', width: 'auto' }}
+            />
+          </a>
+        </div>
+      </footer>
     </div>
   )
 }

@@ -92,9 +92,16 @@ const ModalFooter = ({ children, className = '' }) => (
 // Helper function to format the trend value
 const formatTrendValue = (value: number, unit: string, isRising: boolean) => {
     if (value === 0) return 'Flat';
-    const rounded = Math.abs(value) < 0.1 ? value.toFixed(3) : value.toFixed(1);
-    const arrow = isRising ? '↑' : '↓';
-    return `${arrow} ${rounded} ${unit}/hr`;
+    let formattedValue: string;
+    if (unit === 'cfs') {
+        // For cfs, round to nearest integer
+        formattedValue = Math.round(value).toString();
+    } else {
+        // For ft, keep the existing decimal formatting
+        formattedValue = Math.abs(value) < 0.1 ? value.toFixed(3) : value.toFixed(1);
+    }
+    const arrow = isRising ? '⬆️' : '⬇️';
+    return `${arrow} ${formattedValue} ${unit}/hr`;
 };
 
 interface RiverLevelsTableProps {
