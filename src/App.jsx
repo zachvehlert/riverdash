@@ -154,7 +154,6 @@ function App() {
       </div> 
       <footer className="mt-5 text-center text-muted small">
         <div>Stream flow data provided by USGS</div>
-        <div>RiverDash will never require an account or collect any data</div>
         <div>ZEhlert Software 2025</div>
         <div className="mt-2">
           <a 
