@@ -32,15 +32,19 @@ export const usgsService = {
         // Get data for the last 24 hours to ensure we have enough measurements
         const startTime = new Date(now.getTime() - 24 * 60 * 60 * 1000);
         
-        // Format dates for USGS API (YYYY-MM-DD)
-        const formatDate = (date: Date) => date.toISOString().split('T')[0];
-        // Format time for USGS API (HH:MM:SS)
-        const formatTime = (date: Date) => date.toTimeString().split(' ')[0];
+        // Format date and time for USGS API (UTC time)
+        const formatDateTime = (date: Date) => {
+            const pad = (num: number) => num.toString().padStart(2, '0');
+            const year = date.getUTCFullYear();
+            const month = pad(date.getUTCMonth() + 1);
+            const day = pad(date.getUTCDate());
+            const hours = pad(date.getUTCHours());
+            const minutes = pad(date.getUTCMinutes());
+            return `${year}-${month}-${day}T${hours}:${minutes}:00Z`;
+        };
         
-        const startDate = formatDate(startTime);
-        const startTimeStr = formatTime(startTime);
-        const endDate = formatDate(now);
-        const endTimeStr = formatTime(now);
+        const startDateTime = formatDateTime(startTime);
+        const endDateTime = formatDateTime(now);
 
         for (const station of this.stations) {
             try {
@@ -52,8 +56,8 @@ export const usgsService = {
                 // Fetch data for the last 24 hours to get enough measurements
                 const response = await fetch(
                     `https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${station.id}` +
-                    `&parameterCd=${paramCode}&startDT=${startDate}T${startTimeStr}Z` +
-                    `&endDT=${endDate}T${endTimeStr}Z&siteStatus=all`
+                    `&parameterCd=${paramCode}&startDT=${startDateTime}` +
+                    `&endDT=${endDateTime}&siteStatus=all`
                 );
                 
                 const data = await response.json();
