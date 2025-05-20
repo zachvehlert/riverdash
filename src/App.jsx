@@ -153,7 +153,8 @@ function App() {
         </div>
       </div> 
       <footer className="mt-5 text-center text-muted small">
-        <div>Data provided by USGS</div>
+        <div>Stream flow data provided by USGS</div>
+        <div>RiverDash will never require an account or collect any data</div>
         <div>ZEhlert Software 2025</div>
         <div className="mt-2">
           <a 
@@ -165,7 +166,7 @@ function App() {
             <img 
               src={`${import.meta.env.BASE_URL}bmc-button.png`}
               alt="Buy me a coffee" 
-              style={{ height: '40px', width: 'auto' }}
+              style={{ height: '35px', width: 'auto' }}
             />
           </a>
         </div>
