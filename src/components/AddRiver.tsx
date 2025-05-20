@@ -160,7 +160,7 @@ export const AddRiver = ({ onAddGauge }: AddRiverProps) => {
 
     const handleGaugeSelect = (gauge: Gauge) => {
         setSelectedGauge(gauge);
-        setDisplayName(gauge.name); // Initialize display name with gauge name
+        setDisplayName(''); // Don't pre-populate display name
         setShowGaugesList(false);
         setSearchQuery('');
     };

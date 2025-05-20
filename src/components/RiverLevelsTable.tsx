@@ -1,5 +1,93 @@
 import React, { useState } from 'react';
-import { RiverLevel } from '../models/RiverLevel';
+import { RiverLevel, UnitType } from '../models/RiverLevel';
+
+// Custom Modal component
+const Modal = ({ show, onClose, children }) => {
+  if (!show) return null;
+  
+  return (
+    <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
+      <div className="modal-dialog">
+        <div className="modal-content">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Custom Button component
+const Button = ({ variant = 'primary', onClick, className = '', children }) => {
+  const baseClass = 'btn';
+  const variantClass = variant === 'primary' ? 'btn-primary' : 
+                      variant === 'secondary' ? 'btn-secondary' :
+                      variant === 'outline-danger' ? 'btn btn-outline-danger' : 'btn-primary';
+  
+  return (
+    <button 
+      className={`${baseClass} ${variantClass} ${className}`}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+};
+
+// Custom Form components
+const Form = ({ children, onSubmit = (e: React.FormEvent) => e.preventDefault() }) => (
+  <form onSubmit={onSubmit}>{children}</form>
+);
+
+const FormGroup = ({ children, className = '' }) => (
+  <div className={`mb-3 ${className}`}>{children}</div>
+);
+
+const FormLabel = ({ children }) => (
+  <label className="form-label">{children}</label>
+);
+
+interface FormControlProps {
+  type?: string;
+  value: any;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  placeholder?: string;
+  className?: string;
+  min?: string | number;
+  step?: string | number;
+}
+
+const FormControl = ({ type = 'text', value, onChange, placeholder, className = '', ...rest }: FormControlProps) => (
+  <input 
+    type={type}
+    className={`form-control ${className}`}
+    value={value}
+    onChange={onChange}
+    placeholder={placeholder}
+    {...rest}
+  />
+);
+
+const FormText = ({ children, className = '' }) => (
+  <div className={`form-text ${className}`}>{children}</div>
+);
+
+// Modal subcomponents
+const ModalHeader = ({ children, onClose }) => (
+  <div className="modal-header">
+    <h5 className="modal-title">{children}</h5>
+    {onClose && (
+      <button type="button" className="btn-close" onClick={onClose}></button>
+    )}
+  </div>
+);
+
+const ModalBody = ({ children }) => (
+  <div className="modal-body">{children}</div>
+);
+
+const ModalFooter = ({ children, className = '' }) => (
+  <div className={`modal-footer ${className}`}>{children}</div>
+);
 
 // Helper function to format the trend value
 const formatTrendValue = (value: number, unit: string, isRising: boolean) => {
@@ -12,28 +100,53 @@ const formatTrendValue = (value: number, unit: string, isRising: boolean) => {
 interface RiverLevelsTableProps {
     riverLevels: RiverLevel[];
     onDelete: (index: number) => void;
+    onUpdate: (index: number, updates: Partial<RiverLevel>) => void;
 }
 
-export const RiverLevelsTable = ({ riverLevels, onDelete }: RiverLevelsTableProps) => {
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [riverToDelete, setRiverToDelete] = useState<number | null>(null);
+export const RiverLevelsTable = ({ riverLevels, onDelete, onUpdate }: RiverLevelsTableProps) => {
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [selectedRiverIndex, setSelectedRiverIndex] = useState<number | null>(null);
+    const [displayName, setDisplayName] = useState('');
+    const [unit, setUnit] = useState<UnitType>('cfs');
+    const [minFlow, setMinFlow] = useState<string | number>('');
+    const [maxFlow, setMaxFlow] = useState<string | number>('');
 
     const handleRowClick = (index: number) => {
-        setRiverToDelete(index);
-        setShowDeleteModal(true);
-    };
-
-    const handleConfirmDelete = () => {
-        if (riverToDelete !== null) {
-            onDelete(riverToDelete);
-            setShowDeleteModal(false);
-            setRiverToDelete(null);
-        }
+        const river = riverLevels[index];
+        setSelectedRiverIndex(index);
+        setDisplayName(river.displayName || '');
+        setUnit(river.unit || 'cfs');
+        setMinFlow(river.minFlow ?? '');
+        setMaxFlow(river.maxFlow ?? '');
+        setShowEditModal(true);
     };
 
     const handleCloseModal = () => {
-        setShowDeleteModal(false);
-        setRiverToDelete(null);
+        setShowEditModal(false);
+        setSelectedRiverIndex(null);
+        setDisplayName('');
+        setUnit('cfs');
+        setMinFlow('');
+        setMaxFlow('');
+    };
+
+    const handleSaveChanges = () => {
+        if (selectedRiverIndex !== null) {
+            onUpdate(selectedRiverIndex, { 
+                displayName: displayName || undefined,
+                unit: unit || 'cfs',
+                minFlow: minFlow === '' ? undefined : Number(minFlow),
+                maxFlow: maxFlow === '' ? undefined : Number(maxFlow)
+            });
+            handleCloseModal();
+        }
+    };
+
+    const handleDelete = () => {
+        if (selectedRiverIndex !== null) {
+            onDelete(selectedRiverIndex);
+            handleCloseModal();
+        }
     };
 
     if (riverLevels.length === 0) {
@@ -121,30 +234,80 @@ export const RiverLevelsTable = ({ riverLevels, onDelete }: RiverLevelsTableProp
                 </table>
             </div>
             
-            {/* Delete Confirmation Modal */}
-            {showDeleteModal && (
-                <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title">Confirm Delete</h5>
-                                <button type="button" className="btn-close" onClick={handleCloseModal}></button>
+            {/* Edit River Modal */}
+            <Modal show={showEditModal} onClose={handleCloseModal}>
+                <ModalHeader onClose={handleCloseModal}>
+                    Edit River
+                </ModalHeader>
+                <ModalBody>
+                    <Form>
+                        <FormGroup>
+                            <FormLabel>Display Name</FormLabel>
+                            <FormControl
+                                type="text"
+                                value={displayName}
+                                onChange={(e) => setDisplayName(e.target.value)}
+                                placeholder="Enter a custom display name"
+                                className="mb-2"
+                            />
+                            <FormText className="text-muted mb-3 d-block">
+                                Leave blank to use the default name
+                            </FormText>
+
+                            <FormLabel>Unit of Measurement</FormLabel>
+                            <select 
+                                className="form-select mb-3" 
+                                value={unit}
+                                onChange={(e) => setUnit(e.target.value as UnitType)}
+                            >
+                                <option value="ft">Feet (ft)</option>
+                                <option value="cfs">Cubic Feet per Second (cfs)</option>
+                            </select>
+
+                            <div className="row g-2 mb-3">
+                                <div className="col">
+                                    <FormLabel>Minimum Flow</FormLabel>
+                                    <FormControl
+                                        type="number"
+                                        value={minFlow}
+                                        onChange={(e) => setMinFlow(e.target.value === '' ? '' : Number(e.target.value))}
+                                        placeholder="Min flow"
+                                        min="0"
+                                        step="0.1"
+                                    />
+                                </div>
+                                <div className="col">
+                                    <FormLabel>Maximum Flow</FormLabel>
+                                    <FormControl
+                                        type="number"
+                                        value={maxFlow}
+                                        onChange={(e) => setMaxFlow(e.target.value === '' ? '' : Number(e.target.value))}
+                                        placeholder="Max flow"
+                                        min="0"
+                                        step="0.1"
+                                    />
+                                </div>
                             </div>
-                            <div className="modal-body">
-                                Are you sure you want to remove this river from your dashboard?
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>
-                                    Cancel
-                                </button>
-                                <button type="button" className="btn btn-danger" onClick={handleConfirmDelete}>
-                                    Delete
-                                </button>
-                            </div>
-                        </div>
+                            <FormText className="text-muted">
+                                Set flow ranges to enable color-coded status indicators
+                            </FormText>
+                        </FormGroup>
+                    </Form>
+                </ModalBody>
+                <ModalFooter className="d-flex justify-content-between">
+                    <Button variant="outline-danger" onClick={handleDelete}>
+                        Delete
+                    </Button>
+                    <div>
+                        <Button variant="secondary" onClick={handleCloseModal} className="me-2">
+                            Cancel
+                        </Button>
+                        <Button variant="primary" onClick={handleSaveChanges}>
+                            Save Changes
+                        </Button>
                     </div>
-                </div>
-            )}
+                </ModalFooter>
+            </Modal>
         </>
     );
 };

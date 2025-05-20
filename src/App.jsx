@@ -108,6 +108,20 @@ function App() {
     }
   };
 
+  const handleUpdateGauge = (index, updates) => {
+    try {
+      // Update the station with the new values
+      usgsService.stations[index] = {
+        ...usgsService.stations[index],
+        ...updates
+      };
+      saveStations(usgsService.stations);
+      fetchData();
+    } catch (err) {
+      console.error('Error updating gauge:', err);
+    }
+  };
+
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -131,7 +145,8 @@ function App() {
             <div className="card-body p-0">
               <RiverLevelsTable 
                 riverLevels={riverLevels} 
-                onDelete={handleDeleteGauge} 
+                onDelete={handleDeleteGauge}
+                onUpdate={handleUpdateGauge}
               />
             </div>
           </div>
