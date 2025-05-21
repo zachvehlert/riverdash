@@ -152,7 +152,7 @@ function App() {
           </div>
         </div>
       </div> 
-      <footer className="mt-5 text-center text-muted small">
+      <footer className="mt-5 text-center text-muted small py-3">
         <div>Stream flow data provided by USGS</div>
         <div>ZEhlert Software 2025</div>
         <div className="mt-2">
