@@ -127,13 +127,19 @@ function App() {
     <div className="container position-relative">
       {/* Help Button - Top Right */}
       <button 
-        className="btn btn-outline-secondary rounded-circle position-absolute"
-        style={{ 
-          width: '38px', 
+        className="btn btn-outline-secondary rounded-circle position-fixed"
+        style={{
+          width: '38px',
           height: '38px',
           top: '20px',
           right: '20px',
-          zIndex: 1000
+          zIndex: 1050,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '1.2rem',
+          lineHeight: '1',
+          padding: 0
         }}
         onClick={() => setShowHelpModal(true)}
         aria-label="Help"
@@ -183,8 +189,7 @@ function App() {
                       </div>
                       <div className="modal-body text-start">
                         <h5>About The Site</h5>
-                        <div>This site is a simple tool for tracking flows on your favorite rivers</div>
-                        <div>River dash will always be free and will never require a login</div>
+                        <div>This site is a simple tool for tracking flows on your favorite rivers. River dash will always be free and will never require a login</div>
                         <h5 className="mt-3">Getting Started</h5>
                         <div>Use the <strong>Add River</strong> button to add river gauges to your dashboard.</div>
                         
@@ -195,14 +200,32 @@ function App() {
                         
                         <h5 className="mt-3">Color Coding</h5>
                         <div><strong>Level</strong></div>
-                        <div><span className="text-success">Green</span>: Water level is within the optimal range</div>
-                        <div><span className="text-danger">Red</span>: Water level is outside the optimal range</div>
-                        <div><span className="text-primary">Blue</span>: Water level range is not set</div>
+                        <div className="d-flex align-items-center mb-2">
+                          <span className="badge bg-success me-2">1234 cfs</span>
+                          <span>Water level is within the optimal range</span>
+                        </div>
+                        <div className="d-flex align-items-center mb-2">
+                          <span className="badge bg-danger me-2">1234 cfs</span>
+                          <span>Water level is outside the optimal range</span>
+                        </div>
+                        <div className="d-flex align-items-center">
+                          <span className="badge bg-primary me-2">1234 cfs</span>
+                          <span>Water level range is not set</span>
+                        </div>
 
-                        <div className="mt-2"><strong>Trend</strong></div>
-                        <div><span className="text-info">Light Blue</span>: Water level is rising</div>
-                        <div><span className="text-secondary">Grey</span>: Water level is stable</div>
-                        <div><span className="text-warning">Orange</span>: Water level is falling</div>
+                        <div className="mt-3"><strong>Trend</strong></div>
+                        <div className="d-flex align-items-center mb-2">
+                          <span className="badge bg-info text-dark me-2">⬆️ 12.3 cfs/hr</span>
+                          <span>Water level is rising</span>
+                        </div>
+                        <div className="d-flex align-items-center mb-2">
+                          <span className="badge bg-warning text-dark me-2">⬇️ 8.5 cfs/hr</span>
+                          <span>Water level is falling</span>
+                        </div>
+                        <div className="d-flex align-items-center">
+                          <span className="badge bg-secondary me-2">Flat</span>
+                          <span>Water level is stable</span>
+                        </div>
                       </div>
                       <div className="modal-footer">
                         <button 
