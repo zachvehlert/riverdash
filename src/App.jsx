@@ -20,6 +20,7 @@ function App() {
   const [riverLevels, setRiverLevels] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [showHelpModal, setShowHelpModal] = useState(false)
 
   // Load saved stations on component mount
   useEffect(() => {
@@ -123,7 +124,23 @@ function App() {
   };
 
   return (
-    <div className="container">
+    <div className="container position-relative">
+      {/* Help Button - Top Right */}
+      <button 
+        className="btn btn-outline-secondary rounded-circle position-absolute"
+        style={{ 
+          width: '38px', 
+          height: '38px',
+          top: '20px',
+          right: '20px',
+          zIndex: 1000
+        }}
+        onClick={() => setShowHelpModal(true)}
+        aria-label="Help"
+        title="Help"
+      >
+        ?
+      </button>
       <div className="row justify-content-center">
         <div className="col-12 col-md-10 col-lg-8">
           <div className="text-center mb-4">
@@ -139,6 +156,68 @@ function App() {
             <div className="d-flex justify-content-center">
               <AddRiver onAddGauge={handleAddGauge} />
             </div>
+            
+            {/* Help Modal */}
+            {showHelpModal && (
+              <>
+                <div 
+                  className="modal-backdrop fade show" 
+                  onClick={() => setShowHelpModal(false)} 
+                  style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 1040 }}
+                />
+                <div 
+                  className="modal fade show d-block" 
+                  tabIndex="-1" 
+                  style={{ display: 'block', zIndex: 1050 }}
+                >
+                  <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h4 className="modal-title">River Dashboard Help</h4>
+                        <button 
+                          type="button" 
+                          className="btn-close" 
+                          onClick={() => setShowHelpModal(false)} 
+                          aria-label="Close"
+                        />
+                      </div>
+                      <div className="modal-body text-start">
+                        <h5>About The Site</h5>
+                        <div>This site is a simple tool for tracking flows on your favorite rivers</div>
+                        <div>River dash will always be free and will never require a login</div>
+                        <h5 className="mt-3">Getting Started</h5>
+                        <div>Use the <strong>Add River</strong> button to add river gauges to your dashboard.</div>
+                        
+                        <h5 className="mt-3">Reading the Data</h5>
+                        <div>Click on any river to edit its display name or flow thresholds</div>
+                        <div>Flow values are shown in either feet (ft) or cubic feet per second (cfs)</div>
+                        <div>Trend arrows (⬆️/⬇️) show if water levels are rising or falling</div>
+                        
+                        <h5 className="mt-3">Color Coding</h5>
+                        <div><strong>Level</strong></div>
+                        <div><span className="text-success">Green</span>: Water level is within the optimal range</div>
+                        <div><span className="text-danger">Red</span>: Water level is outside the optimal range</div>
+                        <div><span className="text-primary">Blue</span>: Water level range is not set</div>
+
+                        <div className="mt-2"><strong>Trend</strong></div>
+                        <div><span className="text-info">Light Blue</span>: Water level is rising</div>
+                        <div><span className="text-secondary">Grey</span>: Water level is stable</div>
+                        <div><span className="text-warning">Orange</span>: Water level is falling</div>
+                      </div>
+                      <div className="modal-footer">
+                        <button 
+                          type="button" 
+                          className="btn btn-primary" 
+                          onClick={() => setShowHelpModal(false)}
+                        >
+                          Got it!
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
           
           <div className="card shadow-sm">
@@ -152,7 +231,7 @@ function App() {
           </div>
         </div>
       </div> 
-      <footer className="mt-5 text-center text-muted small py-3">
+      <footer className="mt-3 text-center text-muted small py-3">
         <div>Stream flow data provided by USGS</div>
         <div>ZEhlert Software 2025</div>
         <div className="mt-2">
