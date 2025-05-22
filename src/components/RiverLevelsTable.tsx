@@ -104,6 +104,17 @@ const formatTrendValue = (value: number, unit: string, isRising: boolean) => {
     return `${arrow} ${formattedValue} ${unit}/hr`;
 };
 
+// Helper function to format time as h:mm AM/PM
+const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    let hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    return `${hours}:${minutes} ${ampm}`;
+};
+
 interface RiverLevelsTableProps {
     riverLevels: RiverLevel[];
     onDelete: (index: number) => void;
@@ -232,7 +243,7 @@ export const RiverLevelsTable = ({ riverLevels, onDelete, onUpdate }: RiverLevel
                                     )}
                                 </td>
                                 <td className="text-end text-muted small pe-3">
-                                    {new Date(river.lastUpdated).toLocaleString()}
+                                    {formatDate(river.lastUpdated)}
                                 </td>
                             </tr>
                             );

@@ -75,7 +75,7 @@ function App() {
   if (loading) {
     return (
       <div className="container mt-4">
-        <h1 className="mb-4">River Dashboard</h1>
+        <h1 className="mb-4">River Dash</h1>
         <div className="card">
           <div className="card-body text-center">
             <div className="spinner-border text-primary" role="status">
@@ -91,7 +91,7 @@ function App() {
   if (error) {
     return (
       <div className="container mt-4">
-        <h1 className="mb-4">River Dashboard</h1>
+        <h1 className="mb-4">River Dash</h1>
         <div className="alert alert-danger">
           <strong>Error:</strong> {error}
         </div>
@@ -158,7 +158,7 @@ function App() {
                 className="text-primary"
               />
             </div>
-            <h1 className="mb-3">River Dashboard</h1>
+            <h1 className="mb-3">River Dash</h1>
             <div className="d-flex justify-content-center">
               <AddRiver onAddGauge={handleAddGauge} />
             </div>
@@ -179,7 +179,7 @@ function App() {
                   <div className="modal-dialog modal-dialog-centered">
                     <div className="modal-content">
                       <div className="modal-header">
-                        <h4 className="modal-title">River Dashboard Help</h4>
+                        <h4 className="modal-title">River Dash Help</h4>
                         <button 
                           type="button" 
                           className="btn-close" 
@@ -189,31 +189,30 @@ function App() {
                       </div>
                       <div className="modal-body text-start">
                         <h5>About The Site</h5>
-                        <div>This site is a simple tool for tracking flows on your favorite rivers. River dash will always be free and will never require a login</div>
+                        <div>This site is a simple tool for tracking flows on your favorite rivers. <strong>River dash will always be free and will never require a login</strong></div>
                         <h5 className="mt-3">Getting Started</h5>
-                        <div>Use the <strong>Add River</strong> button to add river gauges to your dashboard.</div>
+                        <div>Use the <button className="btn btn-primary btn-sm">Add River</button> button to add gauges to your dashboard</div>
                         
                         <h5 className="mt-3">Reading the Data</h5>
-                        <div>Click on any river to edit its display name or flow thresholds</div>
+                        <div>Click on any river to edit its display name, flow thresholds, and measurement type</div>
                         <div>Flow values are shown in either feet (ft) or cubic feet per second (cfs)</div>
-                        <div>Trend arrows (⬆️/⬇️) show if water levels are rising or falling</div>
                         
                         <h5 className="mt-3">Color Coding</h5>
-                        <div><strong>Level</strong></div>
+                        <div>Level</div>
                         <div className="d-flex align-items-center mb-2">
                           <span className="badge bg-success me-2">1234 cfs</span>
-                          <span>Water level is within the optimal range</span>
+                          <span>Water level is within set range</span>
                         </div>
                         <div className="d-flex align-items-center mb-2">
                           <span className="badge bg-danger me-2">1234 cfs</span>
-                          <span>Water level is outside the optimal range</span>
+                          <span>Water level is outside set range</span>
                         </div>
                         <div className="d-flex align-items-center">
                           <span className="badge bg-primary me-2">1234 cfs</span>
                           <span>Water level range is not set</span>
                         </div>
 
-                        <div className="mt-3"><strong>Trend</strong></div>
+                        <div className="mt-3">Trend</div>
                         <div className="d-flex align-items-center mb-2">
                           <span className="badge bg-info text-dark me-2">⬆️ 12.3 cfs/hr</span>
                           <span>Water level is rising</span>
@@ -255,7 +254,7 @@ function App() {
         </div>
       </div> 
       <footer className="mt-3 text-center text-muted small py-3">
-        <div>Stream flow data provided by USGS</div>
+        <div>Flow data provided by USGS</div>
         <div>ZEhlert Software 2025</div>
         <div className="mt-2">
           <a 
@@ -267,7 +266,7 @@ function App() {
             <img 
               src={`${import.meta.env.BASE_URL}bmc-button.png`}
               alt="Buy me a coffee" 
-              style={{ height: '35px', width: 'auto' }}
+              style={{ height: '30px', width: 'auto' }}
             />
           </a>
         </div>
