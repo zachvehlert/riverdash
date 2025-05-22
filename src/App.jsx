@@ -191,7 +191,7 @@ function App() {
                         <h5>About The Site</h5>
                         <div>This site is a simple tool for tracking flows on your favorite rivers. <strong>River dash will always be free and will never require a login</strong></div>
                         <h5 className="mt-3">Getting Started</h5>
-                        <div>Use the <button className="btn btn-primary btn-sm">Add River</button> button to add gauges to your dashboard</div>
+                        <div>Use the <button className="btn btn-primary btn-sm">Add New River</button> button to add gauges to your dashboard</div>
                         
                         <h5 className="mt-3">Reading the Data</h5>
                         <div>Click on any river to edit its display name, flow thresholds, and measurement type</div>
