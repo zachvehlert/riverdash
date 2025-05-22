@@ -283,7 +283,7 @@ export const AddRiver = ({ onAddGauge }: AddRiverProps) => {
                                                     id="displayName"
                                                     value={displayName}
                                                     onChange={handleDisplayNameChange}
-                                                    placeholder="Enter a custom display name"
+                                                    placeholder="Enter a custom display name (Optional)"
                                                 />
                                                 <div className="form-group mb-3">
                                                     <label className="form-label"><strong>Unit</strong></label>
@@ -308,7 +308,7 @@ export const AddRiver = ({ onAddGauge }: AddRiverProps) => {
                                                 <div className="row mb-3">
                                                     <div className="col">
                                                         <label htmlFor="minFlow" className="form-label">
-                                                            <strong>Min Flow ({unit})</strong>
+                                                            <strong>Min Runnable Flow ({unit})</strong>
                                                         </label>
                                                         <input
                                                             type="number"
@@ -323,7 +323,7 @@ export const AddRiver = ({ onAddGauge }: AddRiverProps) => {
                                                     </div>
                                                     <div className="col">
                                                         <label htmlFor="maxFlow" className="form-label">
-                                                            <strong>Max Flow ({unit})</strong>
+                                                            <strong>Max Runnable Flow ({unit})</strong>
                                                         </label>
                                                         <input
                                                             type="number"
@@ -336,6 +336,9 @@ export const AddRiver = ({ onAddGauge }: AddRiverProps) => {
                                                             step="0.1"
                                                         />
                                                     </div>
+                                                    <p className="text-muted">
+                                                    Set flow ranges to enable color-coded status indicators
+                                                    </p>
                                                 </div>
                                             </div>
                                             <button 

@@ -273,7 +273,7 @@ export const RiverLevelsTable = ({ riverLevels, onDelete, onUpdate }: RiverLevel
 
                             <div className="row g-2 mb-3">
                                 <div className="col">
-                                    <FormLabel>Minimum Flow</FormLabel>
+                                    <FormLabel>Minimum Runnable Flow</FormLabel>
                                     <FormControl
                                         type="number"
                                         value={minFlow}
@@ -284,7 +284,7 @@ export const RiverLevelsTable = ({ riverLevels, onDelete, onUpdate }: RiverLevel
                                     />
                                 </div>
                                 <div className="col">
-                                    <FormLabel>Maximum Flow</FormLabel>
+                                    <FormLabel>Maximum Runnable Flow</FormLabel>
                                     <FormControl
                                         type="number"
                                         value={maxFlow}
