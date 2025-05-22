@@ -166,14 +166,14 @@ export const RiverLevelsTable = ({ riverLevels, onDelete, onUpdate }: RiverLevel
 
     return (
         <>
-            <div className="table-responsive">
-                <table className="table table-striped table-hover m-0">
-                    <thead className="table-light">
-                        <tr>
-                            <th>River Name</th>
-                            <th className="text-end">Level</th>
-                            <th className="text-end">Trend</th>
-                            <th className="text-end">Updated</th>
+            <div className="table-responsive rounded shadow-sm">
+                <table className="table table-hover m-0">
+                    <thead>
+                        <tr className="table-light">
+                            <th className="border-0 ps-3">River Name</th>
+                            <th className="text-end border-0">Level</th>
+                            <th className="text-end border-0">Trend</th>
+                            <th className="text-end border-0 pe-3">Updated</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -214,7 +214,7 @@ export const RiverLevelsTable = ({ riverLevels, onDelete, onUpdate }: RiverLevel
                                 style={{ cursor: 'pointer' }}
                                 className="hover-highlight"
                             >
-                                <td className="align-middle">{river.displayName || river.name}</td>
+                                <td className="align-middle ps-3">{river.displayName || river.name}</td>
                                 <td className="text-end align-middle">
                                     <span className={`badge ${badgeClass}`}>
                                         {river.unit === 'cfs' 
@@ -231,7 +231,7 @@ export const RiverLevelsTable = ({ riverLevels, onDelete, onUpdate }: RiverLevel
                                         <span className="badge bg-secondary">No trend data</span>
                                     )}
                                 </td>
-                                <td className="text-end text-muted small">
+                                <td className="text-end text-muted small pe-3">
                                     {new Date(river.lastUpdated).toLocaleString()}
                                 </td>
                             </tr>
