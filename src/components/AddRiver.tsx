@@ -115,14 +115,11 @@ export const AddRiver = ({ onAddGauge }: AddRiverProps) => {
                             : 'Location not available'
                     }));
                     
-                    console.log('Fetched gauges:', gauges);
                     setGauges(gauges);
                 } else {
-                    console.warn('No gauge data found in response');
                     setGauges([]);
                 }
             } catch (error) {
-                console.error('Error fetching gauges:', error);
             } finally {
                 setLoading(false);
             }

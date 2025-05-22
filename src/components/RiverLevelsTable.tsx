@@ -194,29 +194,14 @@ export const RiverLevelsTable = ({ riverLevels, onDelete, onUpdate }: RiverLevel
                             const hasMinFlow = typeof river.minFlow === 'number';
                             const hasMaxFlow = typeof river.maxFlow === 'number';
                             
-                            console.log(`River: ${river.name}`, {
-                                level: river.waterLevel,
-                                minFlow: river.minFlow,
-                                maxFlow: river.maxFlow,
-                                hasMinFlow,
-                                hasMaxFlow
-                            });
-                            
                             if (hasMinFlow && river.waterLevel < river.minFlow!) {
                                 badgeClass = 'bg-danger';
-                                console.log(`${river.name}: Below min flow (${river.waterLevel} < ${river.minFlow})`);
                             } else if (hasMaxFlow && river.waterLevel > river.maxFlow!) {
                                 badgeClass = 'bg-danger';
-                                console.log(`${river.name}: Above max flow (${river.waterLevel} > ${river.maxFlow})`);
                             } else if ((hasMinFlow && hasMaxFlow) && 
                                      (river.waterLevel >= river.minFlow! && river.waterLevel <= river.maxFlow!)) {
                                 badgeClass = 'bg-success';
-                                console.log(`${river.name}: Within flow range (${river.minFlow} ≤ ${river.waterLevel} ≤ ${river.maxFlow})`);
-                            } else {
-                                console.log(`${river.name}: No flow range set or missing data`);
                             }
-                            
-                            console.log(`${river.name}: Using badge class:`, badgeClass);
                             
                             return (
                             <tr 

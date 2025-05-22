@@ -62,19 +62,9 @@ export const usgsService = {
                 
                 const data = await response.json();
                 
-                // Log the full response for debugging
-                console.group('USGS API Response for station:', station.id);
-                console.log('Full response:', data);
-                
-                if (data?.value?.timeSeries?.[0]?.values?.[0]?.value) {
-                    const values = data.value.timeSeries[0].values[0].value;
-                    console.log('Available measurements:', values.length);
-                    console.log('Measurement times:', values.map((v: any) => v.dateTime));
-                    console.log('Latest measurement:', values[values.length - 1]);
-                } else {
-                    console.warn('No time series data found in response');
+                if (!data?.value?.timeSeries?.[0]?.values?.[0]?.value) {
+                    // No time series data found
                 }
-                console.groupEnd();
                 
                 if (data?.value?.timeSeries?.[0]?.values?.[0]?.value?.length >= 2) {
                     const values = data.value.timeSeries[0].values[0].value;
@@ -115,10 +105,10 @@ export const usgsService = {
                         }
                     });
                 } else {
-                    console.warn(`Not enough data points for station ${station.id}`);
+
                 }
             } catch (error) {
-                console.error(`Error fetching data for station ${station.id}:`, error);
+
             }
         }
 
