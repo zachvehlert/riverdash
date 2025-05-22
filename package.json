@@ -9,13 +9,18 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "start": "node server.js",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "bootstrap": "^5.3.6",
+    "express": "^4.18.2",
     "gh-pages": "^6.3.0",
+    "http-proxy-middleware": "^3.0.0",
     "react": "^19.1.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
