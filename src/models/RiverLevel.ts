@@ -1,6 +1,7 @@
 export type UnitType = 'ft' | 'cfs';
 
 export interface RiverLevel {
+    id: string;
     name: string;
     displayName?: string;
     waterLevel: number;
@@ -91,19 +92,25 @@ export const usgsService = {
                     const currentValue = measurementPoints[measurementPoints.length - 1].value;
                     const avgChangePerHour = validPairs > 0 ? totalChangePerHour / validPairs : 0;
                     
-                    riverLevels.push({
-                        name: station.name,
-                        displayName: station.displayName || station.name,
-                        waterLevel: currentValue,
-                        lastUpdated: measurementPoints[measurementPoints.length - 1].time,
-                        unit: station.unit,
-                        minFlow: station.minFlow,
-                        maxFlow: station.maxFlow,
-                        trend: {
-                            value: Math.abs(avgChangePerHour),
-                            isRising: avgChangePerHour > 0
-                        }
-                    });
+                    // Find the station in the stations array to get the id
+                    const stationInfo = this.stations.find(s => s.name === station.name);
+                    
+                    if (stationInfo) {
+                        riverLevels.push({
+                            id: stationInfo.id, // Include the id from the stations array
+                            name: station.name,
+                            displayName: station.displayName || station.name,
+                            waterLevel: currentValue,
+                            lastUpdated: measurementPoints[measurementPoints.length - 1].time,
+                            unit: station.unit,
+                            minFlow: station.minFlow,
+                            maxFlow: station.maxFlow,
+                            trend: {
+                                value: Math.abs(avgChangePerHour),
+                                isRising: avgChangePerHour > 0
+                            }
+                        });
+                    }
                 } else {
 
                 }

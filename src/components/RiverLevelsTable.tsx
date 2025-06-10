@@ -239,10 +239,32 @@ export const RiverLevelsTable = ({ riverLevels, onDelete, onUpdate }: RiverLevel
             
             {/* Edit River Modal */}
             <Modal show={showEditModal} onClose={handleCloseModal}>
-                <ModalHeader onClose={handleCloseModal}>
-                    Edit River
-                </ModalHeader>
-                <ModalBody>
+                <div className="modal-header position-relative">
+                    <div className="w-100">
+                        <h5 className="modal-title mb-0">River Menu</h5>
+                    </div>
+                    <button 
+                        type="button" 
+                        className="btn-close position-absolute" 
+                        onClick={handleCloseModal}
+                        style={{ top: '1rem', right: '1rem' }}
+                    ></button>
+                </div>
+                <hr className="my-0" />
+                <div className="modal-body pt-3">
+                    <div className="d-flex justify-content-center mb-3">
+                        <Button 
+                            variant="outline-primary"
+                            onClick={() => {
+                                if (selectedRiverIndex !== null) {
+                                    const url = `https://waterdata.usgs.gov/monitoring-location/${riverLevels[selectedRiverIndex].id}/#dataTypeId=continuous-${riverLevels[selectedRiverIndex].unit === 'cfs' ? '00060' : '00065'}-0&period=P7D`;
+                                    window.open(url, '_blank', 'noopener,noreferrer');
+                                }
+                            }}
+                        >
+                            View Gauge on USGS
+                        </Button>
+                    </div>
                     <Form>
                         <FormGroup>
                             <FormLabel>Display Name</FormLabel>
@@ -296,7 +318,7 @@ export const RiverLevelsTable = ({ riverLevels, onDelete, onUpdate }: RiverLevel
                             </FormText>
                         </FormGroup>
                     </Form>
-                </ModalBody>
+                </div>
                 <ModalFooter className="d-flex justify-content-between">
                     <Button variant="outline-danger" onClick={handleDelete}>
                         Delete
