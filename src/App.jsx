@@ -194,7 +194,7 @@ function App() {
                         <div>Use the <button className="btn btn-primary btn-sm">Add New River</button> button to add gauges to your dashboard</div>
                         
                         <h5 className="mt-3">Reading the Data</h5>
-                        <div>Click on any river to edit its display name, flow thresholds, and measurement type</div>
+                        <div>Click on any river to edit its display name, flow thresholds, and measurement type. You'll also find a link the gauge on the USGS website.</div>
                         <div>Flow values are shown in either feet (ft) or cubic feet per second (cfs)</div>
                         
                         <h5 className="mt-3">Color Coding</h5>
